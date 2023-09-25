@@ -5,6 +5,7 @@ import com.example.librarymanagementsystem.Models.Author;
 import com.example.librarymanagementsystem.Models.Book;
 import com.example.librarymanagementsystem.Repository.AuthorRepository;
 import com.example.librarymanagementsystem.Repository.BookRepository;
+import com.example.librarymanagementsystem.dto.request.BookRequest;
 import com.example.librarymanagementsystem.dto.response.BookResponse;
 import com.example.librarymanagementsystem.exception.AuthorNotFoundException;
 import com.example.librarymanagementsystem.mapper.BookMapper;
@@ -24,13 +25,14 @@ public class BookService {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
-    public String addBook(Book book) {
-        Optional<Author> authorOptional = authorRepository.findById(book.getAuthor().getId());
+    public String addBook(BookRequest bookRequest) {
+        Optional<Author> authorOptional = authorRepository.findById(bookRequest.getAuthorId());
         if(authorOptional.isEmpty()){
             throw new AuthorNotFoundException("Invalid author id!!!");
         }
 
         Author author = authorOptional.get();
+        Book book = BookMapper.BookRequestToBook(bookRequest);
         book.setAuthor(author);
 
         author.getBooks().add(book);

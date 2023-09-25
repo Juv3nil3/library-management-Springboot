@@ -3,6 +3,7 @@ package com.example.librarymanagementsystem.Controllers;
 import com.example.librarymanagementsystem.Enums.Genre;
 import com.example.librarymanagementsystem.Models.Book;
 import com.example.librarymanagementsystem.Services.BookService;
+import com.example.librarymanagementsystem.dto.request.BookRequest;
 import com.example.librarymanagementsystem.dto.response.BookResponse;
 import com.example.librarymanagementsystem.exception.AuthorNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class BookController {
 
 
     @PostMapping("/add")
-    public String addBook(@RequestBody Book book){
+    public String addBook(@RequestBody BookRequest bookRequest){
         try{
-            String response = bookService.addBook(book);
+            String response = bookService.addBook(bookRequest);
             return response;
         } catch(AuthorNotFoundException e){
             return e.getMessage();

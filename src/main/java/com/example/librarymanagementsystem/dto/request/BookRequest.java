@@ -14,4 +14,5 @@ public class BookRequest {
     int noOfPages;
     Genre genre;
     double cost;
+    int authorId;
 }
